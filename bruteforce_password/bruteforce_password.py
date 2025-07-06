@@ -2,6 +2,8 @@ import string
 import os
 from datetime import datetime
 from tqdm import tqdm
+import importlib.resources
+
 
 class BruteforcePassword:
     def __init__(self, first_name="",  middle_name="", last_name="", dob="", 
@@ -86,10 +88,7 @@ class BruteforcePassword:
         '''
             Internal function
         '''
-        current_dir = os.path.dirname(__file__)
-        file_path = os.path.join(current_dir, "common_passwords.txt")
-
-        with open(file_path, "r", encoding="utf-8") as file:
+        with importlib.resources.open_text("bruteforce_password", "common_passwords.txt", encoding="utf-8") as file:
             lines = file.readlines()
             self.templates = [line.strip() for line in lines if line.strip()]
 
